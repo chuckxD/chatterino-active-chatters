@@ -68,19 +68,25 @@ module.exports = (async () => {
           chatters = chatters.concat(c);
         }
       });
-      sayMessageFull = `!choose ${chatters.join(" ")}`;
-      // truncate our last chatter PepeHands
-      sayMessageSubstring = sayMessageFull
-        .substring(0, 499) // automod character limit(?)
-        .split(" ")
-        .slice(0, -1)
-        .join(" ");
-
       CONSOLE_LOGGING &&
         console.info(
-          `about ${chatters.length} active chatters this past hour\n\n${sayMessageFull}\n\nsayMessageFull character length: ${sayMessageFull.length}\n\n`
+          `[${dts.toLocaleString("en-US")}] about ${
+            chatters.length
+          } active chatters this past hour...\n\n${chatters.join(" ")}`
         );
-      CONSOLE_LOGGING && console.info(sayMessageSubstring);
+
+      //sayMessageFull = `!choose ${chatters.join(" ")}`;
+      // truncate our last chatter PepeHands
+      //sayMessageSubstring = sayMessageFull
+      //  .substring(0, 499) // automod character limit(?)
+      //  .split(" ")
+      //  .slice(0, -1)
+      //  .join(" ");
+      // CONSOLE_LOGGING &&
+      //   console.info(
+      //     `about ${chatters.length} active chatters this past hour\n\n${sayMessageFull}\n\nsayMessageFull character length: ${sayMessageFull.length}\n\n`
+      //   );
+      // CONSOLE_LOGGING && console.info(sayMessageSubstring);
       // return sayMessageSubstring;
     });
   } catch (err) {
