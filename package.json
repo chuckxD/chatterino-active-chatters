@@ -1,0 +1,20 @@
+{
+  "name": "choose-name-bot",
+  "version": "1.0.0",
+  "description": "",
+  "main": "choose-name.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "dotenv": "^8.2.0"
+  },
+  "dependencies": {
+    "date-fns": "^2.16.1",
+    "tmi.js": "^1.5.0",
+    "xregexp": "^4.3.0"
+  }
+}
