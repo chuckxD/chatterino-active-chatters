@@ -1,7 +1,7 @@
 require("dotenv").config();
 const { format: formatDateTime, subHours, subMinutes } = require("date-fns");
 const fs = require("fs");
-const ircClient = require("./irc-client");
+// const ircClient = require("./irc-client");
 
 const {
   CHATTERINO_CHANNELS_LOG_PATH: logPath,
@@ -19,6 +19,8 @@ const EXCLUDE_CHATTERS = [
   "sumbot_",
   "poopthefirst",
   "danitko",
+  "moonmoon_nam",
+  "scootycoolguy",
 ];
 
 const poop = () => console.info(`poop xd`);
@@ -38,15 +40,15 @@ module.exports = (async () => {
     //   "g"
     // );
     const re = new RegExp(
-      "\\[[" +
+      "\\[(" +
         currentDts[0] +
         "|" +
         prevHourDts[0] +
-        "]{2}\\:[0-9]{2}\\:[0-9]{2}\\]\\s{2}\\w+",
+        "){1}\\:[0-9]{2}\\:[0-9]{2}\\]\\s{2}\\w+",
       "g"
     );
 
-    // console.info(`RegEx match: `, re);
+    console.info(`RegEx match: `, re);
 
     let out = "",
       sayMessageFull = "",
@@ -68,26 +70,23 @@ module.exports = (async () => {
           chatters = chatters.concat(c);
         }
       });
+      sayMessageFull = `!choose ${chatters.join(" ")}`;
+      // truncate our last chatter PepeHands
+      sayMessageSubstring = sayMessageFull
+        .substring(0, 499) // automod character limit(?)
+        .split(" ")
+        .slice(0, -1)
+        .join(" ");
+
       CONSOLE_LOGGING &&
         console.info(
           `[${dts.toLocaleString("en-US")}] about ${
             chatters.length
-          } active chatters this past hour...\n\n${chatters.join(" ")}`
+          } active chatters this past hour...`
         );
 
-      //sayMessageFull = `!choose ${chatters.join(" ")}`;
-      // truncate our last chatter PepeHands
-      //sayMessageSubstring = sayMessageFull
-      //  .substring(0, 499) // automod character limit(?)
-      //  .split(" ")
-      //  .slice(0, -1)
-      //  .join(" ");
-      // CONSOLE_LOGGING &&
-      //   console.info(
-      //     `about ${chatters.length} active chatters this past hour\n\n${sayMessageFull}\n\nsayMessageFull character length: ${sayMessageFull.length}\n\n`
-      //   );
-      // CONSOLE_LOGGING && console.info(sayMessageSubstring);
-      // return sayMessageSubstring;
+      CONSOLE_LOGGING && console.info(sayMessageSubstring);
+      return sayMessageSubstring;
     });
   } catch (err) {
     CONSOLE_LOGGING && console.error(err);
